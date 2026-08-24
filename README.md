@@ -1,13 +1,12 @@
 # tws-api-swift — Interactive Brokers TWS API swiftified
-
-An open-source Swift library for the Interactive Brokers Trader Workstation (TWS) API.
+An open-source Swift library for the Interactive Brokers Trader Workstation (TWS) API. 
+This software is not an official product and is not affiliated with or endorsed by Interactive Brokers.
 
 [![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg?style=flat)](https://github.com/stensoosaar/tws-api-swift#license)
 ![Swift](https://img.shields.io/badge/swift-6.3-blue.svg)
 ![macOS 26+](https://img.shields.io/badge/macOS-26.0%2B-blue.svg)
 ![Version 10.47](https://img.shields.io/badge/Version-10.49-blue.svg)
 
-> **Note**: This software is **not** an official product and is not affiliated with or endorsed by Interactive Brokers.
 
 ## Overview
 IBKit provides a modern, Swift-native interface to the Interactive Brokers TWS API, allowing you to programmatically access:
