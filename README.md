@@ -1,4 +1,4 @@
-# tws-api-swift — Interactive Brokers TWS API for Swift
+# tws-api-swift — Interactive Brokers TWS API swiftified
 
 An open-source Swift library for the Interactive Brokers Trader Workstation (TWS) API.
 
