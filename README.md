@@ -63,6 +63,7 @@ let package = Package(
         )
     ]
 )
+```
 
 ## Usage
-See IBPlayground
+See included IBPlayground (will add more samples soon)
