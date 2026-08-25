@@ -2,11 +2,12 @@
 An open-source Swift library for the Interactive Brokers Trader Workstation (TWS) API. 
 This software is not an official product and is not affiliated with or endorsed by Interactive Brokers.
 
+![Version 10.49](https://img.shields.io/badge/Version-10.49-blue.svg)
 [![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg?style=flat)](https://github.com/stensoosaar/tws-api-swift#license)
 ![Swift](https://img.shields.io/badge/swift-6.3-blue.svg)
 ![macOS 26+](https://img.shields.io/badge/macOS-26.0%2B-blue.svg)
-![Version 10.49](https://img.shields.io/badge/Version-10.49-blue.svg)
-
+[![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-blue.svg)](https://github.com/apple/swift-package-manager)
+ 
 ## Motivation
 The official TWS API has long been available in C++, Java, and Python. While Swift offers an excellent balance of performance, safety, and developer experience, it lacks first-class support. This library aims to fill that gap.
 
