@@ -1,3 +1,16 @@
+/*:
+ [􀄪 Welcome](1.%20Welcome)
+# Contracts
+ An `IBPBContract` struct is **dual-mode**:
+
+ - **As a query** (what you send): loosely specify identifying attributes — Symbol/Type/Currency, or an external ID (ISIN, CUSIP, FIGI, RIC) — and TWS resolves it against its database. How many matches come back depends on how narrow your query is. Too little identifying data and TWS returns an error rather than a match; a tightly-specified query resolves to exactly one contract, a loose one can return several.
+ - **As a pointer** (what you get back): once a contract comes back from the server — via `contractDetails`, or by referencing its `conId` — it's fully resolved. From that point on, treat it as a precise reference, not something that needs further searching.
+
+ **Dispatch**: send an `IBPBContractDataRequest`. TWS replies with matching `IBPBContract`/`IBPBContractDetails` pairs until `.contractDetailsEnd`.
+
+ **Tip**: resolve your trading universe once, at session warmup — request contract details for everything you plan to trade, and hold onto the resolved (pointer-mode) contracts for the rest of the session, rather than re-running queries for every market data or order request.
+ */
+
 import Foundation
 import TWSAPI
 
@@ -14,7 +27,6 @@ let conf = Connection.Configuration(
 )
 
 let api = Connection(id: 100, with: conf)
-
 
 
 Task{
@@ -74,4 +86,4 @@ Task{
 
 }
 
-
+//: [􀄫 Historical Data](3.%20Historical%20Data)

@@ -110,4 +110,4 @@ Task{
 	try await api.disconnect()
 }
 ```
-See included IBPlayground (will add more samples soon)
+See included IBPlayground pages
