@@ -39,9 +39,9 @@ extension IBPBTickString: IBAPIConvertible {
 		case .news:
 			payload = parseNews(from: value)
 		case .ibDividends:
-			payload = parseDividends(from: value)
+			try payload = parseDividends(from: value)
 		case .rtVolume, .rtTradeVolume:
-			payload = parseRTVolume(from: value)
+			try payload = parseRTVolume(from: value)
 		case .lastRegTime:
 			let timeInterval = Double(value) ?? 0
 			payload = .LastRegulatoryTime(timeInterval)
@@ -67,11 +67,12 @@ extension IBPBTickString: IBAPIConvertible {
 		
 	}
 	
-	private func parseRTVolume(from text: String) -> TickEvent{
+	private func parseRTVolume(from text: String) throws -> TickEvent{
 		
-		let components = text
-			.components(separatedBy: ",")
-			.filter{$0.count == 6}
+		let components = text.components(separatedBy: ";")
+		guard components.count == 6 else {
+			throw CodingError.failedToDecode("RT volume from \(text)")
+		}
 		
 		let price = components[0]
 		let size = components[1]
@@ -95,11 +96,14 @@ extension IBPBTickString: IBAPIConvertible {
 		return TickEvent.News(text)
 	}
 
-	private func parseDividends(from text: String) -> TickEvent{
+	private func parseDividends(from text: String) throws -> TickEvent{
 
 		let components = text
 			.components(separatedBy: ",")
-			.filter{$0.count == 4}
+
+		guard components.count == 4 else {
+			throw CodingError.failedToDecode("Dividends from \(text)")
+		}
 		
 		let paid = Double(components[0]) ?? 0
 		let expected = Double(components[1]) ?? 0
