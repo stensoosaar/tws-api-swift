@@ -41,10 +41,11 @@ let package = Package(
         ),
         .testTarget(
             name: "TWSAPITests",
-            dependencies: ["TWSModels"]
+            dependencies: ["TWSAPI", "TWSModels"]
         ),
 		.testTarget(
-			name: "TWSModelsTests"
+			name: "TWSModelsTests",
+			dependencies: ["TWSAPI", "TWSModels"]
 		),
     ],
     swiftLanguageModes: [.v6]
