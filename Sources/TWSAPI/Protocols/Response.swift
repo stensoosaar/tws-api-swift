@@ -77,4 +77,7 @@ public enum Response: Sendable {
 	case newsBulletins(IBPBNewsBulletin)
 	case error(requestID: Int32, code: Int32, message: String)
 
+	/// A change in the link to the gateway or to the IB farms. Never sent by IB: `Connection` creates it.
+	case status(ConnectionEvent)
+
 }

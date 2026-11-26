@@ -110,4 +110,37 @@ Task{
 	try await api.disconnect()
 }
 ```
+## Connection management
+After `connect()` succeeds the connection keeps itself up. When the socket to the gateway breaks it
+reconnects by `Connection.Configuration.reconnect` (default: retry forever, 1s, 2s, 4s ... capped at 30s;
+`.disabled` restores the old "stream ends" behavior). `messages()` is one stream for the whole life of
+the connection, and link changes arrive in it as `Response.status(ConnectionEvent)`, in order with the data:
+
+``` Swift
+for await response in api.messages() {
+	switch response {
+	case .status(.connected(let reconnect)):
+		if reconnect { /* the socket was re-established: everything requested before is gone, request it again */ }
+
+	case .status(.lost(let reason)), .status(.reconnecting), .status(.reconnectFailed):
+		break   // the socket broke; reconnecting follows, or the stream ends after reconnectFailed
+
+	case .status(.gatewayOffline):
+		break   // the gateway lost its own link to IB (1100); the socket is still up
+	case .status(.gatewayOnline(let dataLost)):
+		if dataLost { /* 1101: market data subscriptions were dropped, request them again */ }
+
+	case .status(.farm(let farm, let status, let name)):
+		break   // data farm notices (2103-2108, 2157-2158)
+
+	case .status(.notice(let code, let message)):
+		break   // any other notice that is not tied to a request
+
+	default:
+		break
+	}
+}
+```
+Order ids from `nextOrderID()` never move backwards across a reconnect. `disconnect()` stops reconnecting and ends the stream.
+
 See included IBPlayground pages

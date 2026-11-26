@@ -5,6 +5,8 @@
 //  Created by Sten Soosaar on 16.02.2026.
 //
 
+import Foundation
+
 
 public extension Connection{
 	
@@ -16,11 +18,26 @@ public extension Connection{
 		public let options: String?
 		public let acceptedVersions: ClosedRange<ServerVersion>
 		
-		public init(host: String, port: Int, capabilities: String? = nil, options: String? = nil) {
+		/// What happens when the socket to the gateway breaks after the API was up.
+		public let reconnect: ReconnectPolicy
+		
+		/// Seconds one connect attempt (TCP, handshake and API start together) may take.
+		public let connectTimeout: TimeInterval
+		
+		public init(
+			host: String,
+			port: Int,
+			capabilities: String? = nil,
+			options: String? = nil,
+			reconnect: ReconnectPolicy = .default,
+			connectTimeout: TimeInterval = 15
+		) {
 			self.host = host
 			self.port = port
 			self.capabilities = capabilities
 			self.options = options
+			self.reconnect = reconnect
+			self.connectTimeout = max(1, connectTimeout)
 			acceptedVersions = ServerVersion.protobuf ... ServerVersion.config
 		}
 		
