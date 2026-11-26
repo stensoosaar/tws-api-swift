@@ -11,7 +11,7 @@ import Foundation
 /// counter restarts for every outage, so `maxAttempts` bounds one outage, not the lifetime of
 /// the connection. When the limit is reached the connection emits
 /// `ConnectionEvent.reconnectFailed` and its message stream finishes.
-public struct ReconnectPolicy: Sendable, Equatable {
+public struct ReconnectPolicy: Sendable, Equatable, Codable {
 
 	/// Attempts per outage before giving up. `nil` retries forever, `0` never reconnects.
 	public var maxAttempts: Int?
